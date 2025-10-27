@@ -1,5 +1,3 @@
-# This script loads the saved and predicts customer churn probability
-
 import pickle
 from typing import Literal
 from pydantic import BaseModel, Field
@@ -53,15 +51,16 @@ def predict_single(customer):
     return float(result)
 
 
+from typing import Dict, Any
+
 @app.post("/predict")
-def predict(customer: Customer) -> PredictResponse:
-    prob = predict_single(customer.model_dump())
+def predict(customer: Dict[str, Any]):
+    prob = predict_single(customer)
 
-    return PredictResponse(
-        churn_probability=prob,
-        churn=prob >= 0.5
-    )
-
+    return {
+        "churn_probability": prob,
+        "churn": bool(prob >= 0.5)
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=9696)
