@@ -5,7 +5,37 @@ import uvicorn
 
 from typing import Dict, Any
 
+from pydantic import BaseModel, Field
+from typing import Literal
+
 app = FastAPI(title="patient-heart-disease-risk-prediction")
+
+class HeartDiseaseInput(BaseModel):
+    gender: Literal["female", "male"]
+    education_level: Literal[
+        "less_than_high_school",
+        "high_school",
+        "some_college_or_vocational_school",
+        "college_or_above"
+    ]
+    smoker: Literal["non_smoker", "smoker"]
+    blood_pressure_medication: Literal["not_on_bp_meds", "on_bp_meds"]
+    had_a_stroke: Literal[0, 1]
+    hypertensive: Literal[0, 1]
+    diabetes: Literal["non_diabetic", "diabetic"]
+
+    age: float = Field(..., ge=0, le=120, description="Age in years")
+    cigarettes_per_day: float = Field(..., ge=0)
+    total_cholesterol: float = Field(..., ge=0)
+    systolic_blood_pressure: float = Field(..., ge=0)
+    diasolic_blood_pressure: float = Field(..., ge=0)
+    bmi: float = Field(..., ge=00)
+    heart_rate: float = Field(..., ge=0)
+    glucose_level: float = Field(..., ge=0)
+
+class PredictResponse(BaseModel):
+    risk_probability: float
+    risk: bool
 
 with open('model.bin', 'rb') as f_in:
     pipeline = pickle.load(f_in)
@@ -17,13 +47,13 @@ def predict_heart_disease_risk_single(patient):
 
 
 @app.post("/predict_heart_disease_risk")
-def predict_heart_disease_risk(patient: Dict[str, Any]):
-    prob = predict_heart_disease_risk_single(patient)
+def predict_heart_disease_risk(patient: HeartDiseaseInput) -> PredictResponse:
+    prob = predict_heart_disease_risk_single(patient.dict())
 
-    return {
-        "risk_probability": prob,
-        "risk": bool(prob >= 0.5)
-    }
+    return PredictResponse(
+        risk_probability = prob,
+        risk = bool(prob >= 0.5)
+    )
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=9696)
