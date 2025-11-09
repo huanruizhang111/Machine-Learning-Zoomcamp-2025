@@ -1,16 +1,20 @@
 #!/usr/bin/env python
 
+import pickle
+
 import pandas as pd
 import numpy as np
+import sklearn
+
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import KFold
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
-import pandas as pd
-import pickle
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
+
+print(f'pandas=={pd.__version__}')
+print(f'numpy=={np.__version__}')
+print(f'sklearn=={sklearn.__version__}')
 
 C = 10
 max_iter = 1000
@@ -131,7 +135,7 @@ def train_model(df):
 
     pipeline.fit(train_dict, y_train)
 
-    print('Finish: Training the model on the full dataset ...')
+    print('Finish: Training the final model on the full dataset ...')
     return pipeline
 
 def save_model(pipeline, output_file):
@@ -144,8 +148,6 @@ def save_model(pipeline, output_file):
 ## Main script
 df, categoricals, numericals = load_data()
 
-# calculate the standard deviation of the AUC scores
-k_fold_auc(df, categoricals, numericals)
-
 pipeline = train_model(df)
+
 save_model(pipeline, 'model.bin')
