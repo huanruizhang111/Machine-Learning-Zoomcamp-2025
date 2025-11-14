@@ -9,7 +9,7 @@ This project aims to build a machine learning model to predict the 10-year risk 
 The dataset used is the Framingham Heart Study dataset from Kaggle:
 https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression?select=framingham.csv
 
-The dataset contains 3,390 patient records with 16 features including:
+The dataset contains 4,238 patient records with 16 features including:
 - **Demographic features**: gender, age
 - **Behavioral features**: education level, smoking status, daily cigarette consumption
 - **Medical history**: blood pressure medication use, previous stroke, hypertension, diabetes
@@ -46,6 +46,14 @@ Build and compare multiple classification models to accurately predict the proba
 6. **Model Selection**: Selected Logistic Regression as the final model based on validation AUC
 7. **Deployment**: Serialized the model as a pickle file and created a FastAPI service for predictions
 
-### Output
+### Output of The Model
 
 The final model outputs the probability of a patient having 10-year CHD risk, which can be used for clinical decision-making and patient stratification.
+
+## How to Run The Project
+
+1. **Download** `Framingham Heart Study dataset` from Kaggle:
+https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression?select=framingham.csv
+2. **Execute** `notebook.ipynb` and you can see the result. However, `the final model (model.bin)` used in this project will be generate in `train.py` script file. Therefore, please do not use the chd_rish_model.bin because it is only used to check if I can successfully save the model in pickle file and read it to use.
+3. **Execute** `train.py` to train and save the final model. `model.bin` will be saved automatically in the save folder.
+4. 
