@@ -52,7 +52,7 @@ The final model outputs the probability of a patient having 10-year CHD risk, wh
 
 ## How to Run The Project
 
-1. **Download** `Framingham Heart Study dataset` from Kaggle:
+1. **Download** `Framingham Heart Study dataset` from Kaggle and put it in the folder your are going to used for reproducing this project:
 https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression?select=framingham.csv
 2. **Execute** `notebook.ipynb` and you can see the result. However, `the final model (model.bin)` used in this project will be generate in `train.py` script file. Therefore, please do not use the chd_rish_model.bin because it is only used to check if I can successfully save the model in pickle file and read it to use.
 3. **Execute** `train.py` to train and save the final model. `model.bin` will be saved automatically in the save folder.

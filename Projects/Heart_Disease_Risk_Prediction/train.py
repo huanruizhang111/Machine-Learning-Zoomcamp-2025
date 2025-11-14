@@ -16,7 +16,7 @@ print(f'pandas=={pd.__version__}')
 print(f'numpy=={np.__version__}')
 print(f'sklearn=={sklearn.__version__}')
 
-C = 10
+C = 0.9
 max_iter = 1000
 n_splits = 5
 
@@ -94,7 +94,7 @@ def k_fold_auc(df_train_full, categoricals, numericals, c=1.0):
         # train the model
         X_train = dv.transform(train_dict)
         y_train = df_train['10year_chd_risk'].values
-        model = LogisticRegression(solver='liblinear', C=C, max_iter=1000)
+        model = LogisticRegression(solver='liblinear', C=C, max_iter=1000, class_weight='balanced', random_state=1)
         model.fit(X_train, y_train)
         
         # make predictions on train data
