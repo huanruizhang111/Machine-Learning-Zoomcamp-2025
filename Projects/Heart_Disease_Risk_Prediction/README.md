@@ -51,22 +51,22 @@ Build and compare multiple classification models to accurately predict the proba
 The final model outputs the probability of a patient having 10-year CHD risk, which can be used for clinical decision-making and patient stratification.
 
 ## How to Run The Project
-0. **Install Libraries**
+#### 0. **Install Libraries**
 ```bash
 pip install jupyter scikit-learn pandas fastapi uvicorn requests uv
 ```
-1. **Download** `Framingham Heart Study dataset` from Kaggle and put it in the folder your are going to used for reproducing this project:
+#### 1. **Download** `Framingham Heart Study dataset` from Kaggle and put it in the folder your are going to used for reproducing this project:
 https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression?select=framingham.csv
-2. **Execute** `notebook.ipynb` and you can see the result. However, `the final model (model.bin)` used in this project will be generate in `train.py` script file. Therefore, please do not use the chd_rish_model.bin because it is only used to check if I can successfully save the model in pickle file and read it to use.
-3. **Execute** `train.py` by
+#### 2. **Execute** `notebook.ipynb` and you can see the result. However, `the final model (model.bin)` used in this project will be generate in `train.py` script file. Therefore, please do not use the chd_rish_model.bin because it is only used to check if I can successfully save the model in pickle file and read it to use.
+#### 3. **Execute** `train.py` by
 
 ```bash
 python train.py
 ```
 to train and save the final model. `model.bin` will be saved automatically in the same folder.
 
-4. Model deployment with FastAPI:
-## Reproducibility & Setup
+#### 4. Model deployment with FastAPI:
+**Reproducibility & Setup**
 
 To help others reproduce this project, include a dependency file and clear instructions to create and activate a virtual environment. A `requirements.txt` has been generated from the current environment and is included in the repository.
 
@@ -82,9 +82,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-(Windows PowerShell):
-
-```powershell
+```bash
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install --upgrade pip
@@ -127,7 +125,7 @@ Response body should shows:
 }
 ```
 
-5.  **Execute** `test.py` with
+#### 5.  **Execute** `test.py` with
 
 ```bash
 python test.py
@@ -140,7 +138,7 @@ Patient is likely to have heart disease in 10 years
 ```
 in the terminal.
 
-6. Environment Management with uv:
+#### 6. Environment Management with uv:
 
 ```bash
 uv run uvicorn predict:app --host 0.0.0.0 --port 9696 --reload
@@ -152,7 +150,7 @@ You should get
 Patient is likely to have heart disease in 10 years
 ```
 
-7. Containerization: 
+#### 7. Containerization with Docker: 
 
 ```bash
 docker build -t heart-disease-risk-predict .
