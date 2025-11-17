@@ -55,5 +55,106 @@ The final model outputs the probability of a patient having 10-year CHD risk, wh
 1. **Download** `Framingham Heart Study dataset` from Kaggle and put it in the folder your are going to used for reproducing this project:
 https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression?select=framingham.csv
 2. **Execute** `notebook.ipynb` and you can see the result. However, `the final model (model.bin)` used in this project will be generate in `train.py` script file. Therefore, please do not use the chd_rish_model.bin because it is only used to check if I can successfully save the model in pickle file and read it to use.
-3. **Execute** `train.py` to train and save the final model. `model.bin` will be saved automatically in the save folder.
-4. 
+3. **Execute** `train.py` by
+
+```bash
+python train.py
+```
+to train and save the final model. `model.bin` will be saved automatically in the same folder.
+
+4. Web Service with FastAPI: **Execute** `predict.py` by
+
+```bash
+uvicorn predict:app --host 0.0.0.0 --port 9696 --reload
+```
+
+, then open the docs and send a request:
+
+```bash
+{
+  "gender": "female",
+  "education_level": "college_or_above",
+  "smoker": "smoker",
+  "blood_pressure_medication": "not_on_bp_meds",
+  "had_a_stroke": 1,
+  "hypertensive": 1,
+  "diabetes": "non_diabetic",
+  "age": 91,
+  "cigarettes_per_day": 20.0,
+  "total_cholesterol": 243.0,
+  "systolic_blood_pressure": 97.0,
+  "diasolic_blood_pressure": 63.0,
+  "bmi": 22.53,
+  "heart_rate": 76.0,
+  "glucose_level": 64.0
+}
+```
+
+Response body should shows:
+```bash
+{
+  "risk_probability": 0.7213961079246105,
+  "risk": true
+}
+```
+
+5.  **Execute** `test.py` with
+
+```bash
+python test.py
+```
+
+You should get
+```bash
+0.7213961079246105
+Patient is likely to have heart disease in 10 years
+```
+in the terminal.
+
+6. Environment Management with uv:
+
+```bash
+uv run uvicorn predict:app --host 0.0.0.0 --port 9696 --reload
+uv run python test.py
+```
+You should get
+```bash
+0.7213961079246105
+Patient is likely to have heart disease in 10 years
+```
+
+7. Containerization: 
+
+```bash
+docker build -t heart-disease-risk-predict .
+docker run -it --rm -p 9696:9696 heart-disease-risk-predict
+```
+, then open the docs and send a request:
+
+```bash
+{
+  "gender": "female",
+  "education_level": "college_or_above",
+  "smoker": "smoker",
+  "blood_pressure_medication": "not_on_bp_meds",
+  "had_a_stroke": 1,
+  "hypertensive": 1,
+  "diabetes": "non_diabetic",
+  "age": 91,
+  "cigarettes_per_day": 20.0,
+  "total_cholesterol": 243.0,
+  "systolic_blood_pressure": 97.0,
+  "diasolic_blood_pressure": 63.0,
+  "bmi": 22.53,
+  "heart_rate": 76.0,
+  "glucose_level": 64.0
+}
+```
+
+Response body should shows:
+```bash
+{
+  "risk_probability": 0.7213961079246105,
+  "risk": true
+}
+```

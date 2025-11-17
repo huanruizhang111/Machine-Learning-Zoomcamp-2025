@@ -1,5 +1,5 @@
 [project]
-name = "midterm-project"
+name = "heart-disease-rish-predict"
 version = "0.1.0"
 description = "Heart Diease Risk Prediction"
 readme = "README.md"

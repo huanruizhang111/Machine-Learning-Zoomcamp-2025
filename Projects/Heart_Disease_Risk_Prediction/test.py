@@ -1,6 +1,6 @@
 import requests
 
-url = 'http://127.0.0.1:9696/predict_heart_disease_risk'
+url = 'http://127.0.0.1:9696/predict'
 
 patient = {
   "gender": "female",

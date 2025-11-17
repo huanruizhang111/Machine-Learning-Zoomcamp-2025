@@ -46,8 +46,8 @@ def predict_heart_disease_risk_single(patient):
     return float(risk)
 
 
-@app.post("/predict_heart_disease_risk")
-def predict_heart_disease_risk(patient: HeartDiseaseInput) -> PredictResponse:
+@app.post("/predict")
+def predict(patient: HeartDiseaseInput) -> PredictResponse:
     prob = predict_heart_disease_risk_single(patient.dict())
 
     return PredictResponse(
