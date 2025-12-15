@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zoomcamp-model
+spec:
+  type: LoadBalancer
+  selector:
+    app: zoomcamp-model
+  ports:
+  - port: 80
+    targetPort: 8080
